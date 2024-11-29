@@ -1,0 +1,28 @@
+select * from sys.databases where state_desc <> 'online'
+go
+
+
+SELECT ag.name agname, ags.* FROM sys.dm_hadr_availability_group_states ags INNER JOIN sys.availability_groups ag ON ag.group_id = ags.group_id
+go
+SELECT ar.replica_server_name, harc.* FROM sys.dm_hadr_availability_replica_cluster_states harc INNER JOIN sys.availability_replicas ar ON ar.replica_id = harc.replica_id
+go
+
+SELECT dss.servicename, dss.[status_desc]
+FROM   sys.dm_server_services dss
+WHERE  dss.[servicename] LIKE N'SQL Server Agent (%';
+go
+
+select serverproperty('isclustered')
+go
+select @@version
+--sp_helpdb
+
+
+sp_configure 'show advanced options', 1;
+GO
+RECONFIGURE;
+GO
+sp_configure 'max server memory'
+GO
+RECONFIGURE;
+GO
